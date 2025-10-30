@@ -1,4 +1,4 @@
-# 📚 Smart Attendance Management System
+# 📚 Vero-Smart Attendance Management System
 
 A full-stack web application designed to automate student attendance, reduce manual workload, and improve accuracy in academic record-keeping.
 
@@ -100,7 +100,10 @@ mvn spring-boot:run
 ---
 ## 👩‍💻 Author
 - Priyanka Bhandari
-- Engineering Student | Frontend Developer (React)
-Mumbai, India
-[Linkedin ]([https://github.com/your-username/your-repo-name](https://www.linkedin.com/in/pr-bhandari?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app))
+- Frontend Developer | Data Visualization Enthusiast
+- Mumbai, India
+---
+### 📎 Connect with Me
+
+[LinkedIn Profile](https://www.linkedin.com/in/pr-bhandari/)
 
