@@ -4,6 +4,7 @@ services:
     env: java
     buildCommand: ./mvnw package -DskipTests
     startCommand: java -jar target/*.jar
+    healthCheckPath: /health
     envVars:
       - key: SPRING_DATASOURCE_URL
         value: jdbc:postgresql://ep-late-dust-ahakze1q-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require
