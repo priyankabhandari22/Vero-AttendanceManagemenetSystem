@@ -29,13 +29,6 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Dummy admin data
-  const adminData = {
-    name: "Admin User",
-    email: "admin@vero.edu",
-    role: "Super Admin"
-  };
-
   const user= JSON.parse(localStorage.getItem("user"));
 
   // Statistics data
@@ -220,7 +213,7 @@ navigate("/login")
               </button>
               <div className="text-right">
                 <p className="text-sm font-medium text-slate-800">{user.name}</p>
-                <p className="text-xs text-slate-600">{adminData.role}</p>
+                <p className="text-xs text-slate-600">"Admin"</p>
               </div>
               <div className="w-10 h-10 bg-slate-200 rounded-full flex items-center justify-center">
                 <FaUser className="text-slate-600" />
@@ -244,7 +237,7 @@ navigate("/login")
                 </div>
                 <h3 className="font-semibold text-slate-800">{user.name}</h3>
                 <p className="text-sm text-slate-600">{user.email}</p>
-                <p className="text-sm text-slate-600">{adminData.role}</p>
+                <p className="text-sm text-slate-600">"Admin"</p>
               </div>
 
               <div className="space-y-1">

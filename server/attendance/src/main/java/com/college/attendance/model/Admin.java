@@ -18,6 +18,7 @@ public class Admin {
     // This will map to your existing admin_key column
     @Column(name = "admin_key")
     private String adminKey;
+    @Column(unique = true)
     private String email;
     private String password;
 }

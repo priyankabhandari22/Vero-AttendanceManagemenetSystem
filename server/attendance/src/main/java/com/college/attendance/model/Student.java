@@ -19,5 +19,6 @@ public class Student {
     private String _class;
     private String department;
     private String password;
+    @Column(unique = true)
     private String email;
 }

@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
     Optional<Student> findByEmailAndPassword(String email, String password);
+    List<Student> findByEmail(String email);
 
 
     @Query("SELECT s FROM Student s WHERE s.department = :department AND s._class = :studentClass")

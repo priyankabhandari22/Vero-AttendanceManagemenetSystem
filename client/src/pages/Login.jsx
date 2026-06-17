@@ -66,7 +66,7 @@ const createRegistrationData = (formData) => {
   const handleAuth = async() => {
     if(isLogin){
       try {
-    const response = await axios.post(`http://localhost:8080/api/${formData.role}/login`, {
+    const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/${formData.role}/login`, {
       email: formData.email,
       password: formData.password
     });
@@ -83,7 +83,7 @@ const createRegistrationData = (formData) => {
  try {
     const requestData = createRegistrationData(formData);
     console.log('Registration data:', requestData);
-    const response = await axios.post(`http://localhost:8080/api/${formData.role}/register`, 
+    const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/${formData.role}/register`, 
     requestData,
     {
       headers: { "Content-Type": "application/json" },

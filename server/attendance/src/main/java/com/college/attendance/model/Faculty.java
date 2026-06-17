@@ -17,6 +17,7 @@ public class Faculty {
     private String name;
     private String department;
     private String _class;
+    @Column(unique = true)
     private String email;
     private String password;
 }

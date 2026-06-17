@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaUserShield, FaChartLine, FaUsers, FaSitemap, FaChartBar, FaCalendarCheck, FaShieldAlt, FaRocket, FaCheckCircle, FaArrowRight } from "react-icons/fa";
-import landingImg from "../assest/landingpage.jpeg"
+import landingImg from "../assets/landingpage.jpeg"
 
 
 const LandingPage = () => {

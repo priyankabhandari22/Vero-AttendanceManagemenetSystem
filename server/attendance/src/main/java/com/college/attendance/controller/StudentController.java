@@ -3,20 +3,21 @@ package com.college.attendance.controller;
 import com.college.attendance.model.Student;
 import com.college.attendance.repository.StudentRepository;
 import org.springframework.http.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/student")
-@CrossOrigin(origins = "http://localhost:5173") // React frontend
 public class StudentController {
 
     private final StudentRepository repo;
+    private final PasswordEncoder passwordEncoder;
 
-    public StudentController(StudentRepository repo) {
+    public StudentController(StudentRepository repo, PasswordEncoder passwordEncoder) {
         this.repo = repo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -25,32 +26,38 @@ public class StudentController {
     }
 
     @PostMapping("/register")
-    public Student addStudent(@RequestBody Student student) {
-        return repo.save(student);
+    public ResponseEntity<?> addStudent(@RequestBody Student student) {
+        try {
+            if (!repo.findByEmail(student.getEmail()).isEmpty()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already registered");
+            }
+            student.setPassword(passwordEncoder.encode(student.getPassword()));
+            Student saved = repo.save(student);
+            return ResponseEntity.ok(saved);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error during registration: " + e.getMessage());
+        }
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginStudent(@RequestBody Student student) {
-        Optional<Student> foundUser = repo.findByEmailAndPassword(student.getEmail(), student.getPassword());
+        var students = repo.findByEmail(student.getEmail());
 
-        if (foundUser.isPresent()) {
-            // Return user object with 200 OK
-            return ResponseEntity.ok(foundUser.get());
+        if (!students.isEmpty() && passwordEncoder.matches(student.getPassword(), students.get(0).getPassword())) {
+            return ResponseEntity.ok(students.get(0));
         } else {
-            // Return message with 401 Unauthorized
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body("Invalid email or password");
         }
     }
 
-
     // Request DTO for department and class
     public static class StudentFilterRequest {
         private String department;
         private String _class;
 
-        // Constructors
         public StudentFilterRequest() {}
 
         public StudentFilterRequest(String department, String _class) {
@@ -58,7 +65,6 @@ public class StudentController {
             this._class = _class;
         }
 
-        // Getters and Setters
         public String getDepartment() {
             return department;
         }
@@ -86,7 +92,6 @@ public class StudentController {
             this.uid = uid;
         }
 
-        // Getters
         public String getName() {
             return name;
         }
@@ -100,7 +105,6 @@ public class StudentController {
     @PostMapping("/by-department-class")
     public ResponseEntity<?> getStudentsByDepartmentAndClass(@RequestBody StudentFilterRequest filterRequest) {
         try {
-            // Validate request
             if (filterRequest.getDepartment() == null || filterRequest.getDepartment().trim().isEmpty()) {
                 return ResponseEntity.badRequest().body("Department is required");
             }
@@ -109,13 +113,11 @@ public class StudentController {
                 return ResponseEntity.badRequest().body("Class is required");
             }
 
-            // Get students from repository
             List<Student> students = repo.findByDepartmentAndClass(
                     filterRequest.getDepartment(),
                     filterRequest.get_class()
             );
 
-            // Convert to response DTO with only name and uid
             List<StudentResponse> studentResponses = students.stream()
                     .map(student -> new StudentResponse(student.getName(), student.getUid()))
                     .collect(Collectors.toList());
@@ -127,9 +129,6 @@ public class StudentController {
                     .body("Error fetching students: " + e.getMessage());
         }
     }
-
-
-
 
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable Long id) {

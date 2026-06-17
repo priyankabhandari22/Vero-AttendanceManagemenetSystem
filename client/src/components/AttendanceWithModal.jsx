@@ -22,7 +22,7 @@ const AttendanceButtonWithModal = () => {
   const fetchStudents = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/student/by-department-class",
+        `${import.meta.env.VITE_API_BASE_URL}/api/student/by-department-class`,
         {
           department: user.department,
           _class: user._class,
@@ -64,7 +64,7 @@ const AttendanceButtonWithModal = () => {
   const handleSaveAttendance = async(attendanceData) => {
     console.log('Saving attendance:', attendanceData);
     // Here you would typically make an API call to save the attendance
-    const response= await axios.post("http://localhost:8080/api/computer-attendance/add",
+    const response= await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/computer-attendance/add`,
       attendanceData)
      
       console.log("res : "+response.data);

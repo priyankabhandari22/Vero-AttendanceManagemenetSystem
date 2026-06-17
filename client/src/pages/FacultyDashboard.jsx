@@ -174,7 +174,7 @@ const FacultyDashboard = () => {
 useEffect(() => {
   const fetchAttendance = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/computer-attendance/attendance", {
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/computer-attendance/attendance`, {
         params: {
           year: user._class
         }
@@ -331,94 +331,7 @@ navigate("/login")
                 </div>
 
                
-                {/* <div className="flex flex-wrap gap-3 mb-6">
-                  <button
-                    onClick={markAllPresent}
-                    className="flex items-center space-x-2 bg-green-50 text-green-700 px-4 py-2 rounded-lg border border-green-200 hover:bg-green-100 transition-colors"
-                  >
-                    <FaUserCheck />
-                    <span>Mark All Present</span>
-                  </button>
-                  <button
-                    onClick={markAllAbsent}
-                    className="flex items-center space-x-2 bg-red-50 text-red-700 px-4 py-2 rounded-lg border border-red-200 hover:bg-red-100 transition-colors"
-                  >
-                    <FaUserTimes />
-                    <span>Mark All Absent</span>
-                  </button>
-                </div> */}
 
-              
-                {/* <div className="mb-6">
-                  <div className="relative">
-                    <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" />
-                    <input
-                      type="text"
-                      placeholder="Search students by name or UID..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                    />
-                  </div>
-                </div> */}
-
-             
-                {/* <div className="space-y-3 mb-6">
-                  {filteredStudents.map((student) => (
-                    <div key={student.id} className="flex items-center justify-between p-4 border border-slate-200 rounded-xl hover:shadow-md transition-shadow">
-                      <div>
-                        <h4 className="font-semibold text-slate-800">{student.name}</h4>
-                        <p className="text-sm text-slate-600">{student.uid}</p>
-                      </div>
-                      
-                      <div className="flex items-center space-x-3">
-                        <button
-                          onClick={() => handleAttendanceChange(student.id, true)}
-                          className={`flex items-center space-x-2 px-4 py-2 rounded-lg border transition-all ${
-                            student.attendance === true
-                              ? 'bg-green-500 text-white border-green-500'
-                              : 'bg-white text-green-600 border-green-300 hover:bg-green-50'
-                          }`}
-                        >
-                          <FaCheck />
-                          <span>Present</span>
-                        </button>
-                        
-                        <button
-                          onClick={() => handleAttendanceChange(student.id, false)}
-                          className={`flex items-center space-x-2 px-4 py-2 rounded-lg border transition-all ${
-                            student.attendance === false
-                              ? 'bg-red-500 text-white border-red-500'
-                              : 'bg-white text-red-600 border-red-300 hover:bg-red-50'
-                          }`}
-                        >
-                          <FaTimes />
-                          <span>Absent</span>
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div> */}
-
-                {/* <div className="flex justify-end">
-                  <button
-                    onClick={submitAttendance}
-                    disabled={attendanceMarked}
-                    className="bg-green-600 text-white px-8 py-3 rounded-xl hover:bg-green-700 transition-all shadow-lg shadow-green-500/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
-                  >
-                    {attendanceMarked ? (
-                      <>
-                        <FaCheck />
-                        <span>Attendance Marked!</span>
-                      </>
-                    ) : (
-                      <>
-                        <FaUserCheck />
-                        <span>Submit Attendance</span>
-                      </>
-                    )}
-                  </button>
-                </div> */}
 
                 <AttendanceButtonWithModal/>
               </div>
